@@ -8,8 +8,18 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [AuthModalComponent, LoginComponent, RegisterComponent],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule],
-  exports: [AuthModalComponent],
+  declarations: [
+    AuthModalComponent,
+    LoginComponent,
+    RegisterComponent
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    AuthModalComponent
+  ]
 })
-export class UserModule {}
+export class UserModule { }
