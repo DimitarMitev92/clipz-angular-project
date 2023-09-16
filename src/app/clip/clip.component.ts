@@ -4,16 +4,17 @@ import { ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-clip',
   templateUrl: './clip.component.html',
-  styleUrls: ['./clip.component.css'],
+  styleUrls: ['./clip.component.css']
 })
 export class ClipComponent implements OnInit {
-  id = '';
+  id = ''
 
-  constructor(public route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = params.id;
-    });
+      this.id = params.id
+    })
   }
+
 }
