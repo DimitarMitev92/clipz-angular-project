@@ -25,13 +25,8 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   alertMsg = 'Please wait! Updating clip.';
   @Output() update = new EventEmitter();
 
-  clipID = new FormControl('', {
-    nonNullable: true,
-  });
-  title = new FormControl('', {
-    validators: [Validators.required, Validators.minLength(3)],
-    nonNullable: true,
-  });
+  clipID = new FormControl('');
+  title = new FormControl('', [Validators.required, Validators.minLength(3)]);
   editForm = new FormGroup({
     title: this.title,
     id: this.clipID,
@@ -54,9 +49,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
 
     this.inSubmission = false;
     this.showAlert = false;
-    if (this.activeClip.docID) {
-      this.clipID.setValue(this.activeClip.docID);
-    }
+    if (this.activeClip.docID) this.clipID.setValue(this.activeClip.docID);
     this.title.setValue(this.activeClip.title);
   }
 
@@ -71,7 +64,8 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     this.alertMsg = 'Please wait! Updating clip.';
 
     try {
-      await this.clipService.updateClip(this.clipID.value, this.title.value);
+      if (this.clipID.value && this.title.value)
+        await this.clipService.updateClip(this.clipID.value, this.title.value);
     } catch (e) {
       this.inSubmission = false;
       this.alertColor = 'red';
@@ -79,7 +73,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
       return;
     }
 
-    this.activeClip.title = this.title.value;
+    if (this.title.value) this.activeClip.title = this.title.value;
     this.update.emit(this.activeClip);
 
     this.inSubmission = false;
